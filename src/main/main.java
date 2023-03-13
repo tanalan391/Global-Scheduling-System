@@ -23,10 +23,10 @@ public class main extends Application {
 
 
     public static void main(String[] args) throws SQLException {
-       /* DBC.startConnection();
-        DBQueries.getAll();
-        //launch(args);
+        DBC.startConnection();
+        //DBQueries.getAll();
+        launch(args);
         DBC.closeConnection();
-        */
+
     }
 }
