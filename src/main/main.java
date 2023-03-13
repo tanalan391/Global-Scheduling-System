@@ -1,8 +1,7 @@
 package main;
 
-import DAO.CustDAO;
-import DAO.DBQueries;
 import DAO.DBC;
+import DAO.DBQ;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -24,7 +23,7 @@ public class main extends Application {
 
     public static void main(String[] args) throws SQLException {
         DBC.startConnection();
-        //DBQueries.getAll();
+        DBQ.getAll();
         launch(args);
         DBC.closeConnection();
 
