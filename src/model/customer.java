@@ -86,4 +86,9 @@ public class customer {
     public void setDivID(int divID) {
         this.divID = divID;
     }
+
+    @Override
+    public String toString(){
+        return(getName());
+    }
 }

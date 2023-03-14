@@ -13,6 +13,7 @@ public class DBQ {
     public static void getAll(){
         CustDAO.getAllCustomers();
         ApptDAO.getApptList();
+        UserDAO.getUserList();
         getFirstLevelList();
         getCountryList();
     }

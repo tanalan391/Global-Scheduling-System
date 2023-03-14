@@ -42,24 +42,47 @@ public abstract class CustDAO {
     }
 
 
-    public static int insert(String name, int divisionID) throws SQLException{
+    public static int newCust(customer customer) throws SQLException{
+        customerList.add(customer);
+        String name = customer.getName();
+        String address = customer.getAddress();
+        String postalCode = customer.getPostalCode();
+        String phone = customer.getPhoneNumber();
+        Timestamp createDate = customer.getCreateDate();
+        int divID = customer.getDivID();
 
-        String sql = "INSERT INTO client_schedule.customers (Customer_Name, Division_ID) VALUES(?,? )";
+        String sql = "INSERT INTO client_schedule.customers (Customer_Name,Address, Postal_Code, Phone, Create_Date, Division_ID) VALUES(?,?,?,?,?,? )";
         PreparedStatement ps = DBC.getConnection().prepareStatement(sql);
         ps.setString(1, name);
-        ps.setInt(2,divisionID);
+        ps.setString(2, address);
+        ps.setString(3, postalCode);
+        ps.setString(4, phone);
+        ps.setTimestamp(5, createDate);
+        ps.setInt(6,divID);
         int rowsAffected = ps.executeUpdate();
-
 
         return rowsAffected;
     }
 
-    public static int update(int customerID, String name) throws SQLException{
+    public static int editCust(customer customer, int Index) throws SQLException{
 
-        String sql = "UPDATE client_schedule.customers SET Customer_Name = ? WHERE Customer_ID = ?";
+        int custID = customer.getID();
+        String name = customer.getName();
+        String address = customer.getAddress();
+        String postalCode = customer.getPostalCode();
+        String phone = customer.getPhoneNumber();
+        Timestamp lastUpdate = customer.getLastUpdate();
+        int divID = customer.getDivID();
+
+        String sql = "UPDATE client_schedule.customers SET Customer_Name = ?, Address = ?, Postal_Code = ?, Phone = ?, Last_Update = ?, Division_ID = ? WHERE Customer_ID = ?";
         PreparedStatement ps = DBC.getConnection().prepareStatement(sql);
-        ps.setInt(2, customerID);
         ps.setString(1, name);
+        ps.setString(2, address);
+        ps.setString(3, postalCode);
+        ps.setString(4,phone);
+        ps.setTimestamp(5,lastUpdate);
+        ps.setInt(6,divID);
+        ps.setInt(7,custID);
         int rowsAffected = ps.executeUpdate();
         return rowsAffected;
     }

@@ -10,6 +10,10 @@ import java.util.ResourceBundle;
 
 public class ApptDAO {
     public static ObservableList<appointment> apptList = FXCollections.observableArrayList();
+    public static void newAppt(appointment appointment){apptList.add(appointment);}
+    public static void editAppt(appointment appointment, int index){}
+    public static void delAppt(int index){apptList.remove(index);}
+
 
     public static ObservableList<appointment> getApptList(){
         try {
@@ -39,5 +43,32 @@ public class ApptDAO {
             throwables.printStackTrace();
         }
         return apptList;
+    }
+
+    public static int newAppt(appointment appointment) throws SQLException{
+        apptList.add(appointment);
+        String title = appointment.getTitle();
+        String desc = appointment.getDesc();
+        String loc = appointment.getLoc();
+        String type = appointment.getType();
+        LocalDateTime start = appointment.getStart();
+        LocalDateTime end = appointment.getEnd();
+        Timestamp createDate = appointment.getCreateDate();
+        int custID = appointment.getCustID();
+        int userID = appointment.getUserID();
+        int conID = appointment.getConID();
+
+        String sql = "INSERT INTO client_schedule.appointments (Title, Description, Location, Type, Start, End, Create_Date, Customer_ID, User_ID, Contact_ID) VALUES(?,?,?,?,?,?,?,?,?,? )";
+        PreparedStatement ps = DBC.getConnection().prepareStatement(sql);
+        ps.setString(1, title);
+        ps.setString(2, desc);
+        ps.setString(3, loc );
+        ps.setString(4, type);
+        ps.setDate(5, );
+        ps.setTimestamp(5, createDate);
+        ps.setInt(6,divID);
+        int rowsAffected = ps.executeUpdate();
+
+        return rowsAffected;
     }
 }
