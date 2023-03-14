@@ -6,6 +6,7 @@ import model.*;
 
 import java.sql.*;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 public class ApptDAO {
@@ -64,7 +65,7 @@ public class ApptDAO {
         ps.setString(2, desc);
         ps.setString(3, loc );
         ps.setString(4, type);
-        ps.setDate(5, );
+        ps.setDate(5, start);
         ps.setTimestamp(5, createDate);
         ps.setInt(6,divID);
         int rowsAffected = ps.executeUpdate();
