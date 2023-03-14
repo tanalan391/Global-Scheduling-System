@@ -6,13 +6,15 @@ import model.*;
 
 import java.sql.*;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.util.Date;
 import java.util.ResourceBundle;
 
 public class ApptDAO {
     public static ObservableList<appointment> apptList = FXCollections.observableArrayList();
-    public static void newAppt(appointment appointment){apptList.add(appointment);}
-    public static void editAppt(appointment appointment, int index){}
+    public static void addAppt(appointment appointment){apptList.add(appointment);}
+    public static void updateAppt(appointment appointment, int index){}
     public static void delAppt(int index){apptList.remove(index);}
 
 
@@ -52,8 +54,8 @@ public class ApptDAO {
         String desc = appointment.getDesc();
         String loc = appointment.getLoc();
         String type = appointment.getType();
-        LocalDateTime start = appointment.getStart();
-        LocalDateTime end = appointment.getEnd();
+        Timestamp start = Timestamp.from(appointment.getStart().toInstant((ZoneOffset) ZoneId.systemDefault()));
+        Timestamp end = Timestamp.from(appointment.getEnd().toInstant((ZoneOffset) ZoneId.systemDefault()));
         Timestamp createDate = appointment.getCreateDate();
         int custID = appointment.getCustID();
         int userID = appointment.getUserID();
@@ -65,11 +67,45 @@ public class ApptDAO {
         ps.setString(2, desc);
         ps.setString(3, loc );
         ps.setString(4, type);
-        ps.setDate(5, start);
-        ps.setTimestamp(5, createDate);
-        ps.setInt(6,divID);
+        ps.setTimestamp(5, start);
+        ps.setTimestamp(6, end);
+        ps.setTimestamp(7, createDate);
+        ps.setInt(8,custID);
+        ps.setInt(9,userID);
+        ps.setInt(10,conID);
         int rowsAffected = ps.executeUpdate();
 
+        return rowsAffected;
+    }
+
+    public static int editAppt(appointment appointment, int Index) throws SQLException{
+
+        int apptID = appointment.getApptID();
+        String title = appointment.getTitle();
+        String desc = appointment.getDesc();
+        String loc = appointment.getLoc();
+        String type = appointment.getType();
+        Timestamp start = Timestamp.from(appointment.getStart().toInstant((ZoneOffset) ZoneId.systemDefault()));
+        Timestamp end = Timestamp.from(appointment.getEnd().toInstant((ZoneOffset) ZoneId.systemDefault()));
+        Timestamp lastUpdate = appointment.getLastUpdate();
+        int custID = appointment.getCustID();
+        int userID = appointment.getUserID();
+        int conID = appointment.getConID();
+
+        String sql = "UPDATE client_schedule.customers SET Title = ?, Description = ?, Location = ?, Type = ?, Start = ?, End = ?, Last_Update = ?, Customer_ID = ?, User_ID = ?, Contact_ID = ? WHERE Appointment_ID = ?";
+        PreparedStatement ps = DBC.getConnection().prepareStatement(sql);
+        ps.setString(1, title);
+        ps.setString(2, desc);
+        ps.setString(3, loc );
+        ps.setString(4, type);
+        ps.setTimestamp(5, start);
+        ps.setTimestamp(6, end);
+        ps.setTimestamp(7, lastUpdate);
+        ps.setInt(8,custID);
+        ps.setInt(9,userID);
+        ps.setInt(10,conID);
+        ps.setInt(11,apptID);
+        int rowsAffected = ps.executeUpdate();
         return rowsAffected;
     }
 }
