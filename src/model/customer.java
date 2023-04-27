@@ -2,6 +2,7 @@ package model;
 
 import java.sql.Timestamp;
 
+/** Customer class. Data for instances of this class is obtained from the database and stored during runtime.*/
 public class customer {
     private int ID;
     private String name;
@@ -9,17 +10,22 @@ public class customer {
     private String postalCode;
     private String phoneNumber;
     private Timestamp createDate;
+    private String createdBy;
     private Timestamp lastUpdate;
+    private String lastUpdatedBy;
     private int divID;
 
-    public customer(int ID, String name, String address, String postalCode, String phoneNumber, Timestamp createDate, Timestamp lastUpdate, int divID){
+    /**Customer constructor method. Takes variables as values and creates an instance of customer.*/
+    public customer(int ID, String name, String address, String postalCode, String phoneNumber, Timestamp createDate, String createdBy, Timestamp lastUpdate, String lastUpdatedBy, int divID){
         this.ID = ID;
         this.name = name;
         this.address = address;
         this.postalCode = postalCode;
         this.phoneNumber = phoneNumber;
         this.createDate = createDate;
+        this.createdBy = createdBy;
         this.lastUpdate = lastUpdate;
+        this.lastUpdatedBy = lastUpdatedBy;
         this.divID = divID;
     }
 
@@ -87,8 +93,16 @@ public class customer {
         this.divID = divID;
     }
 
+    public String getCreatedBy() {return createdBy;}
+
+    public void setCreatedBy(String createdBy) {this.createdBy = createdBy;}
+
+    public String getLastUpdatedBy() {return lastUpdatedBy;}
+
+    public void setLastUpdatedBy(String lastUpdatedBy) {this.lastUpdatedBy = lastUpdatedBy;}
+
     @Override
     public String toString(){
-        return(getName());
+        return(name);
     }
 }

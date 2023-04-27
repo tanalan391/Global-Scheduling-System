@@ -3,6 +3,7 @@ package model;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
+/** Appointment class. Data for instances of this class is obtained from the database and stored during runtime.*/
 public class appointment {
     private  int apptID;
     private String title;
@@ -12,12 +13,15 @@ public class appointment {
     private LocalDateTime start;
     private LocalDateTime end;
     private Timestamp createDate;
+    private String createdBy;
     private Timestamp lastUpdate;
+    private String lastUpdatedBy;
     private int custID;
     private int userID;
     private int conID;
 
-    public appointment(int apptID, String title, String desc, String loc, String type, LocalDateTime start, LocalDateTime end, Timestamp createDate, Timestamp lastUpdate, int custID, int userID, int conID){
+    /**Appointment constructor method. Takes variables as values and creates an instance of appointment.*/
+    public appointment(int apptID, String title, String desc, String loc, String type, LocalDateTime start, LocalDateTime end, Timestamp createDate, String createdBy, Timestamp lastUpdate, String lastUpdatedBy, int custID, int userID, int conID){
         this.apptID = apptID;
         this.title = title;
         this.desc = desc;
@@ -26,7 +30,9 @@ public class appointment {
         this.start = start;
         this.end = end;
         this.createDate = createDate;
+        this.createdBy = createdBy;
         this.lastUpdate = lastUpdate;
+        this.lastUpdatedBy = lastUpdatedBy;
         this.custID = custID;
         this.userID = userID;
         this.conID = conID;
@@ -127,4 +133,13 @@ public class appointment {
     public void setConID(int conID) {
         this.conID = conID;
     }
+
+    public String getCreatedBy() {return createdBy;}
+
+    public void setCreatedBy(String createdBy) {this.createdBy = createdBy;}
+
+    public String getLastUpdatedBy() {return lastUpdatedBy;}
+
+    public void setLastUpdatedBy(String lastUpdatedBy) {this.lastUpdatedBy = lastUpdatedBy;}
+
 }

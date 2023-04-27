@@ -2,6 +2,7 @@ package model;
 
 import java.sql.Timestamp;
 
+/** User class. Data for instances of this class is obtained from the database and stored during runtime.*/
 public class user {
     private int userID;
     private String userName;
@@ -11,6 +12,7 @@ public class user {
     private Timestamp lastUpdate;
     private String lastUpdatedBy;
 
+    /**User constructor method. Takes variables as values and creates an instance of user.*/
     public user(int userID, String userName, String password, Timestamp createDate, String createdBy, Timestamp lastUpdate, String lastUpdatedBy){
         this.userID = userID;
         this.userName = userName;
@@ -76,4 +78,8 @@ public class user {
     public void setLastUpdatedBy(String lastUpdatedBy) {
         this.lastUpdatedBy = lastUpdatedBy;
     }
+
+    @Override
+    public String toString(){    return (userName);}
+
 }

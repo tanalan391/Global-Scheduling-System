@@ -36,6 +36,10 @@ public abstract class DBC {
     }
 
     public static Connection getConnection() {
+        if (connection == null){
+            System.out.println("Problem!");
+        }
+
         return connection;
     }
 
